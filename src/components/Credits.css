@@ -1,0 +1,109 @@
+.credits {
+  padding-block: var(--section);
+  background: var(--bg-raised);
+  border-block: 1px solid var(--line);
+}
+
+.credits__list {
+  border-top: 1px solid var(--line);
+}
+
+.credits__list li {
+  border-bottom: 1px solid var(--line);
+}
+
+.credit {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(40px, 9vw, 136px) minmax(0, 1fr) minmax(0, 270px) 28px;
+  align-items: center;
+  gap: clamp(12px, 2vw, 32px);
+  width: 100%;
+  padding-block: clamp(20px, 2.6vw, 34px);
+  transition:
+    padding 0.45s var(--ease),
+    background 0.45s;
+}
+
+.credit__index {
+  color: var(--ink-faint);
+}
+
+.credit__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.7em;
+  row-gap: 2px;
+  min-width: 0;
+  font-size: clamp(1.05rem, 2.1vw, 1.9rem);
+  line-height: 1.15;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.credit__title strong {
+  font-weight: 700;
+  font-stretch: 112%;
+}
+
+.credit__title span {
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+.credit__roles {
+  display: grid;
+  gap: 4px;
+  text-align: right;
+}
+
+.credit__icon {
+  display: grid;
+  place-items: center;
+  color: var(--ink-faint);
+  transition: color 0.3s;
+}
+
+.credit--link:hover,
+.credit--link:focus-visible,
+.credit--link.is-current {
+  padding-inline: clamp(10px, 1.4vw, 22px);
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+}
+
+.credit--link:hover .credit__icon,
+.credit--link:focus-visible .credit__icon,
+.credit--link.is-current .credit__icon {
+  color: var(--accent);
+}
+
+@media (max-width: 720px) {
+  .credit {
+    grid-template-columns: minmax(0, 1fr) 24px;
+    grid-template-areas:
+      'index icon'
+      'title icon'
+      'roles icon';
+    row-gap: 6px;
+  }
+
+  .credit__index {
+    grid-area: index;
+  }
+
+  .credit__title {
+    grid-area: title;
+    flex-direction: column;
+    letter-spacing: 0.05em;
+  }
+
+  .credit__roles {
+    grid-area: roles;
+    text-align: left;
+  }
+
+  .credit__icon {
+    grid-area: icon;
+  }
+}
