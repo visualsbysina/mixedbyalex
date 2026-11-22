@@ -2,13 +2,21 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: clamp(14px, 2vw, 24px);
+  gap: clamp(28px, 4vh, 56px);
   /* First viewport under the fixed nav + marquee. */
   min-height: 100svh;
   padding-top: calc(var(--nav) + var(--marquee));
   padding-bottom: clamp(20px, 2.4vw, 36px);
   overflow-x: clip;
   transition: padding-bottom 0.6s var(--ease);
+}
+
+/* Tall viewports: breathe between intro copy and the work grid instead of stacking at the top. */
+@media (min-width: 721px) {
+  .hero {
+    justify-content: space-between;
+    gap: clamp(36px, 7vh, 96px);
+  }
 }
 
 /* Keep the opening composition visible — no scroll-in fade for the first screen. */
@@ -36,6 +44,7 @@
   flex-direction: column;
   gap: clamp(12px, 1.8vw, 20px);
   padding-top: clamp(20px, 3.5vw, 40px);
+  flex: none;
 }
 
 .hero__tag {
@@ -116,6 +125,7 @@
 /* Selected work lives inside the hero, so drop the usual section padding. */
 .hero .work {
   position: relative;
+  flex: none;
   padding-block: 0;
 }
 
@@ -160,9 +170,17 @@
   justify-self: start;
 }
 
+@media (max-width: 720px) {
+  .hero .work {
+    margin-top: clamp(8px, 2vw, 20px);
+  }
+}
+
 @media (max-width: 640px) {
   .hero {
     min-height: 0;
+    justify-content: flex-start;
+    gap: clamp(24px, 6vw, 40px);
   }
 
   .hero__statement {
