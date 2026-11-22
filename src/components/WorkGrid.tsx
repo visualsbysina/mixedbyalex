@@ -47,7 +47,10 @@ export function WorkGrid() {
                   </span>
                   <span className="card__kind label">
                     {work.kind}
-                    <br />
+                    <span className="card__kind-sep" aria-hidden="true">
+                      {' '}
+                      ·{' '}
+                    </span>
                     {work.year}
                   </span>
                 </span>

@@ -3,7 +3,7 @@ import { site } from '../content/site';
 import { totalTracks, works } from '../content/works';
 import { usePlayer } from '../player/PlayerProvider';
 import { PauseIcon, PlayIcon } from './Icons';
-import { Wordmark } from './Wordmark';
+import { WorkGrid } from './WorkGrid';
 import './Hero.css';
 
 const firstWithAudio = works.find((work) => work.tracks.length > 0);
@@ -24,8 +24,6 @@ export function Hero() {
           <span className="dot" />
           {site.role}
           <span className="hero__rule" />
-          aka {site.alias}
-          <span className="hero__rule" />
           {site.city}
         </p>
         <p className="hero__statement" data-reveal style={{ '--order': 1 } as CSSProperties}>
@@ -43,14 +41,9 @@ export function Hero() {
               </span>
             </span>
           </button>
-          <a className="hero__more label" href="#work">
-            Selected work <span aria-hidden="true">↓</span>
-          </a>
         </div>
       </div>
-      <div className="container">
-        <Wordmark />
-      </div>
+      <WorkGrid />
     </section>
   );
 }

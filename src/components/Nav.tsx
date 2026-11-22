@@ -29,7 +29,7 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -41,7 +41,7 @@ export function Nav() {
         <a
           className="nav__brand display"
           href="#top"
-          aria-label={`${site.brand}, ${site.name} also known as ${site.alias}, back to top`}
+          aria-label={`${site.brand}, back to top`}
         >
           {site.brand}
         </a>

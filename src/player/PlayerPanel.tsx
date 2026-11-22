@@ -9,7 +9,7 @@ import {
   PreviousIcon,
 } from '../components/Icons';
 import { works, type Work } from '../content/works';
-import { Timecode } from './PlayerDock';
+import { Timecode, VolumeControl } from './PlayerDock';
 import { formatTime, usePlayer } from './PlayerProvider';
 import { Waveform } from './Waveform';
 import './Player.css';
@@ -213,6 +213,7 @@ function Transport({ work }: { work: Work }) {
             <NextIcon />
           </button>
         ) : null}
+        <VolumeControl className="transport__volume" />
       </div>
 
       {hasSeveral ? (

@@ -58,18 +58,12 @@ export function About() {
       <div className="about__grid">
         <figure className="about__portrait" data-reveal>
           {about.portrait ? (
-            <img
-              src={about.portrait}
-              alt={`${site.name}, also known as ${site.alias}, in the studio`}
-              loading="lazy"
-            />
+            <img src={about.portrait} alt={`${site.fullName} in the studio`} loading="lazy" />
           ) : (
             <Speaker />
           )}
           <figcaption className="label">
-            <span>
-              {site.name} / {site.alias}
-            </span>
+            <span>{site.fullName}</span>
             <span>{site.city}</span>
           </figcaption>
         </figure>
@@ -90,7 +84,15 @@ export function About() {
             {about.facts.map((fact) => (
               <div key={fact.label}>
                 <dt className="label">{fact.label}</dt>
-                <dd>{fact.value}</dd>
+                <dd>
+                  {fact.href ? (
+                    <a href={fact.href} target="_blank" rel="noreferrer">
+                      {fact.value}
+                    </a>
+                  ) : (
+                    fact.value
+                  )}
+                </dd>
               </div>
             ))}
           </dl>

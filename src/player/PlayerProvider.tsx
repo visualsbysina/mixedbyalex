@@ -33,6 +33,9 @@ type PlayerContextValue = {
   previous: () => void;
   /** Jump to a position in the current track, 0..1. */
   seek: (fraction: number) => void;
+  /** Playback volume, 0..1. Defaults to 0.5. */
+  volume: number;
+  setVolume: (volume: number) => void;
   /** Stops playback and dismisses the dock. */
   stop: () => void;
   getAnalyser: () => AnalyserNode | null;
@@ -40,21 +43,29 @@ type PlayerContextValue = {
   subscribeProgress: (listener: () => void) => () => void;
 };
 
+const DEFAULT_VOLUME = 0.5;
+
 const PlayerContext = createContext<PlayerContextValue | null>(null);
 const EMPTY: Progress = { time: 0, duration: 0 };
 
 export function PlayerProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const graphRef = useRef<{ context: AudioContext; analyser: AnalyserNode } | null>(null);
+  const graphRef = useRef<{
+    context: AudioContext;
+    analyser: AnalyserNode;
+    gain: GainNode;
+  } | null>(null);
   const selectionRef = useRef<Selection | null>(null);
   const progressRef = useRef<Progress>(EMPTY);
   const listenersRef = useRef(new Set<() => void>());
+  const volumeRef = useRef(DEFAULT_VOLUME);
 
   const [selection, setSelection] = useState<Selection | null>(null);
   const [viewingId, setViewingId] = useState<string | null>(null);
   const [playing, setPlaying] = useState(false);
   const [buffering, setBuffering] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [volume, setVolumeState] = useState(DEFAULT_VOLUME);
 
   const select = useCallback((next: Selection | null) => {
     selectionRef.current = next;
@@ -84,17 +95,31 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     try {
       const context = new AudioContext();
       const analyser = context.createAnalyser();
+      const gain = context.createGain();
       analyser.fftSize = 2048;
       analyser.smoothingTimeConstant = 0.78;
       // Wider than the default range so loud masters don't pin the meters.
       analyser.minDecibels = -90;
       analyser.maxDecibels = -10;
-      context.createMediaElementSource(audio).connect(analyser);
+      // Element volume would stack with the gain node, so hand level off to Web Audio.
+      audio.volume = 1;
+      gain.gain.value = volumeRef.current;
+      // Gain sits before the analyser so meters and speakers share the same level.
+      context.createMediaElementSource(audio).connect(gain);
+      gain.connect(analyser);
       analyser.connect(context.destination);
-      graphRef.current = { context, analyser };
+      graphRef.current = { context, analyser, gain };
     } catch {
       // No Web Audio: playback still works, the visuals just stay idle.
     }
+  }, []);
+
+  const setVolume = useCallback((next: number) => {
+    const value = Math.min(Math.max(next, 0), 1);
+    volumeRef.current = value;
+    setVolumeState(value);
+    if (graphRef.current) graphRef.current.gain.gain.value = value;
+    else if (audioRef.current) audioRef.current.volume = value;
   }, []);
 
   const play = useCallback(() => {
@@ -130,6 +155,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     const audio = new Audio();
     audio.crossOrigin = 'anonymous';
     audio.preload = 'auto';
+    audio.volume = volumeRef.current;
     audioRef.current = audio;
 
     let frame = 0;
@@ -324,6 +350,8 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       next,
       previous,
       seek,
+      volume,
+      setVolume,
       stop,
       getAnalyser,
       getProgress,
@@ -343,10 +371,12 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       playing,
       previous,
       seek,
+      setVolume,
       stop,
       subscribeProgress,
       toggle,
       viewingId,
+      volume,
     ],
   );
 

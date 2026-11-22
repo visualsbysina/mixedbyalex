@@ -60,6 +60,14 @@ export const ArrowIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+export const VolumeIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg {...stroke} {...props}>
+    <path d="M4 9.5v5h3.2L12 18.5v-13L7.2 9.5H4Z" fill="currentColor" stroke="none" />
+    <path d="M15 9.2a3.2 3.2 0 0 1 0 5.6" />
+    <path d="M17.4 6.8a6 6 0 0 1 0 10.4" />
+  </svg>
+);
+
 /** Three bars that bounce while audio is playing. */
 export function Equalizer({ active }: { active: boolean }) {
   return (

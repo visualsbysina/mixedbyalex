@@ -5,7 +5,6 @@ import { Credits } from './components/Credits';
 import { Hero } from './components/Hero';
 import { Marquee } from './components/Marquee';
 import { Nav } from './components/Nav';
-import { WorkGrid } from './components/WorkGrid';
 import { PlayerDock } from './player/PlayerDock';
 import { PlayerPanel } from './player/PlayerPanel';
 import { PlayerProvider, usePlayer } from './player/PlayerProvider';
@@ -60,10 +59,9 @@ function Site() {
       style={current ? ({ '--accent': current.work.accent } as CSSProperties) : undefined}
     >
       <Nav />
+      <Marquee />
       <main>
         <Hero />
-        <Marquee />
-        <WorkGrid />
         <Credits />
         <About />
       </main>

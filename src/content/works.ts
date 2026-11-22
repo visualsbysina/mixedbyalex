@@ -25,7 +25,7 @@ export type Work = {
   title: string;
   year: number;
   kind: 'Album' | 'Single' | 'Live Event';
-  /** Alex's (Bizzar) credit on the project. */
+  /** Alex's credit on the project. */
   role: string;
   /** PLACEHOLDER: a line or two about the project, shown in the player. */
   summary: string;
@@ -142,7 +142,7 @@ export const works: Work[] = [
     summary: 'Project notes coming soon.',
     details: [
       { label: 'Released', value: releasedOn('eric-bellinger') },
-      { label: 'Format', value: `Album, ${catalog['eric-bellinger']?.tracks.length ?? 0} tracks` },
+      { label: 'Track', value: 'Fatherhood' },
       { label: 'Credit', value: 'Recording Engineer' },
     ],
     cover: ericBellinger,

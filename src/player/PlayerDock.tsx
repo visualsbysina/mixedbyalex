@@ -1,5 +1,13 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
-import { CloseIcon, ExpandIcon, NextIcon, PauseIcon, PlayIcon, PreviousIcon } from '../components/Icons';
+import {
+  CloseIcon,
+  ExpandIcon,
+  NextIcon,
+  PauseIcon,
+  PlayIcon,
+  PreviousIcon,
+  VolumeIcon,
+} from '../components/Icons';
 import { formatTime, usePlaybackSeconds, usePlayer } from './PlayerProvider';
 import { Waveform } from './Waveform';
 import './Player.css';
@@ -7,6 +15,24 @@ import './Player.css';
 export function Timecode({ part }: { part: 'time' | 'duration' }) {
   const seconds = usePlaybackSeconds();
   return <span className="timecode">{formatTime(seconds[part])}</span>;
+}
+
+export function VolumeControl({ className = '' }: { className?: string }) {
+  const { volume, setVolume } = usePlayer();
+  return (
+    <label className={`volume${className ? ` ${className}` : ''}`}>
+      <VolumeIcon width={18} height={18} />
+      <input
+        type="range"
+        min={0}
+        max={1}
+        step={0.01}
+        value={volume}
+        onChange={(event) => setVolume(Number(event.target.value))}
+        aria-label="Volume"
+      />
+    </label>
+  );
 }
 
 /** Thin progress line along the top of the dock; stands in for the waveform on phones. */
@@ -85,6 +111,7 @@ export function PlayerDock() {
         </div>
 
         <div className="dock__tools">
+          <VolumeControl className="dock__volume" />
           <button type="button" className="icon-button" onClick={expand} aria-label="Open player">
             <ExpandIcon width={22} height={22} />
           </button>

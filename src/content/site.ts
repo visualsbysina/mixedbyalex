@@ -3,11 +3,13 @@
  * written to show the layout and should be replaced with the real thing.
  */
 
+import portrait from '../assets/portrait.jpg';
+
 export const site = {
-  /** Primary name shown in the hero wordmark and about. */
+  /** Primary name shown in the hero wordmark. */
   name: 'Alex',
-  /** Studio / credit alias. */
-  alias: 'Bizzar',
+  /** Full name used in the about section. */
+  fullName: 'Alexander Cosenza',
   /** Site and product brand (mixedbyalex.com). */
   brand: 'mixedbyalex',
   role: 'Audio Engineer',
@@ -19,35 +21,40 @@ export const site = {
       'Philadelphia-based audio engineer. Selected work with Alex G, Eric Bellinger, OT7 Quanny, Bossman Dlow and Super Bowl LIX.',
   },
 
-  /** Names that scroll across the band under the hero. */
+  /** Names that scroll across the band under the nav. */
   marquee: [
     'Alex G',
     'OT7 Quanny',
     'Bossman Dlow',
     'Super Bowl LIX',
     'Eric Bellinger',
+    'Patti LaBelle',
+    'The Delfonics',
+    'Skrilla',
     'Khemist Mayfield',
-    'DJ Crazy',
+    'Sean Kingston',
     'Freeway',
     'Ritchie Mitch',
     'Evening Elephants',
   ],
 
   about: {
-    /** Optional: import a photo and set it here to replace the speaker graphic. */
-    portrait: null as string | null,
-    lead: 'Alex, also known as Bizzar, is a recording, mixing and mastering engineer based in Philadelphia, working across albums, singles and live events.',
-    // PLACEHOLDER
+    portrait,
+    lead:
+      'Alexander Cosenza is a Philadelphia-based audio engineer, producer, and artist.',
     body: [
-      'Every session starts with the song. The job is to stay out of its way: capture the performance cleanly, keep the low end honest, and deliver something that holds up on earbuds, in a car and in an arena.',
-      'This paragraph is placeholder copy. Replace it with the real story: where Alex came up, the rooms he works out of, and the artists and collaborators who shaped his sound.',
+      'After beginning his career producing electronic music in 2011, his work earned support from Major Lazer, Dillon Francis, Skrillex, Diplo, and others before he transitioned into audio engineering.',
+      'Now an engineer at MilkBoy The Studio, Alexander has worked with Patti LaBelle, The Delfonics, OT7 Quanny, Skrilla, and projects associated with the Super Bowl. He specializes in recording, mixing, and producing across rap, R&B, rock, pop, and electronic music, and is also one half of the dark electronic duo Hallowthirtyone.',
     ],
     facts: [
       { label: 'Based in', value: 'Philadelphia, PA' },
-      { label: 'Also known as', value: 'Bizzar' },
-      { label: 'Discipline', value: 'Recording, mixing, mastering' },
-      // PLACEHOLDER
-      { label: 'Booking', value: 'Open for new projects' },
+      { label: 'Studio', value: 'MilkBoy The Studio' },
+      { label: 'Discipline', value: 'Recording, mixing, producing' },
+      {
+        label: 'Also',
+        value: 'Hallowthirtyone',
+        href: 'https://music.apple.com/us/album/the-sound-of-silence/1827410447',
+      },
     ],
   },
 
@@ -95,7 +102,7 @@ export const site = {
     },
     {
       artist: 'Eric Bellinger',
-      title: 'Eric Bellinger',
+      title: 'Eric Bellinger (Fatherhood)',
       roles: ['Recording Engineer'],
       workId: 'eric-bellinger',
     },
@@ -116,9 +123,7 @@ export const site = {
 
   contact: {
     heading: 'Got a record to make?',
-    // PLACEHOLDER
-    email: 'booking@example.com',
-    // PLACEHOLDER
+    email: 'alex@mixedbyalex.com',
     note: 'For bookings, rates and availability, send a few lines about the project and a rough timeline.',
     // PLACEHOLDER: swap in the real profile links
     socials: [

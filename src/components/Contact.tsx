@@ -38,7 +38,7 @@ export function Contact() {
             ))}
           </ul>
           <p className="label">
-            © {new Date().getFullYear()} {site.brand} · {site.name} ({site.alias}) · {site.city}
+            © {new Date().getFullYear()} {site.brand} · {site.fullName} · {site.city}
           </p>
           <a className="label contact__top" href="#top">
             Back to top <span aria-hidden="true">↑</span>

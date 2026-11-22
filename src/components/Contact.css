@@ -3,7 +3,7 @@
   overflow: hidden;
   padding-top: var(--section);
   border-top: 1px solid var(--line);
-  background: var(--bg-raised);
+  background: color-mix(in srgb, var(--bg-raised) 88%, transparent);
 }
 
 .contact__glow {
@@ -93,6 +93,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px 28px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+}
+
+.contact__foot .label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
 }
 
 .contact__foot a {

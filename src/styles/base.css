@@ -17,12 +17,14 @@
   --accent: #ff4d24;
 
   --font-sans: 'Archivo Variable', 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-mono: 'Azeret Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  --pad: clamp(20px, 4vw, 56px);
+  --pad: clamp(18px, 3.5vw, 48px);
   --max: 1560px;
-  --section: clamp(88px, 12vw, 176px);
-  --dock: 76px;
+  --nav: 56px;
+  --marquee: 46px;
+  --section: clamp(56px, 7.5vw, 112px);
+  --dock: 72px;
   --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
 
   color-scheme: dark;
@@ -36,8 +38,9 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 72px;
+  scroll-padding-top: calc(var(--nav) + var(--marquee) + 12px);
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -50,6 +53,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
 
 body.is-locked {
@@ -106,7 +110,22 @@ button {
 
 .site {
   position: relative;
+  isolation: isolate;
+  overflow-x: clip;
   transition: --accent 0.6s;
+}
+
+/* Fixed grain under the page — kept dark so it reads as atmosphere, not noise. */
+.site::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url('../assets/grunge.jpg') center / 640px;
+  opacity: .1;
+  /* filter: brightness(0.32) contrast(1.25); */
+  mix-blend-mode: soft-light;
 }
 
 .container {
@@ -139,8 +158,8 @@ button {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 24px;
-  padding-bottom: clamp(28px, 4vw, 48px);
+  gap: 20px;
+  padding-bottom: clamp(18px, 2.8vw, 32px);
 }
 
 .section-head h2 {
